@@ -87,18 +87,41 @@ class Normalizador:
 
     # /\/\/\/\ one hot encoding /\/\/\/\
 
-    def norm_OHE():
+    def norm_OHE(self, df, coluna):
         # tbm é bom p coluna categórica
         # cria uma coluna p cada categoria
+        categorias = sorted(df[coluna].unique())
+        self.categorias_onehot[coluna] = categorias
+   
+    def transforma_OHE(self, df, coluna):
+        resultado = df.copy()        
+        categorias = self.categorias_onehot[coluna]
         
-       pass
+        for categoria in categorias:
+            nome_col = f"{coluna}_{categoria}"
+            resultado[nome_col] = (resultado[coluna] == categoria).astype(int)
+            
+        resultado = resultado.drop(columns=[coluna])
+        return resultado
+        
    
-    def transforma_OHE():
-       pass
-   
-    def inverte_OHE():
-       pass
-
+    def inverte_OHE(self, df, coluna):
+        resultado = df.copy()
+        categorias = self.categorias_onehot[coluna]
+        
+        colunas_OHE = [f"{coluna}_{categoria}" for categoria in categorias]
+        
+        def recupera_cat(linha):
+            for categoria in categorias:
+                nome_coluna = f"{coluna}_{categoria}"
+                if linha[nome_coluna] == 1:
+                    return categoria
+            return None
+        
+        resultado[coluna] = resultado.apply(recupera_cat, axis=1)
+        resultado = resultado.drop(columns=colunas_OHE)
+        
+        return resultado      
 
 dados = pd.read_csv('dados_normalizar.csv')
 
