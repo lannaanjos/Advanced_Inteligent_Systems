@@ -87,32 +87,36 @@ class Normalizador:
         return resultado
 
     # /\/\/\/\ one hot encoding /\/\/\/\
-
+    # categoria ganha prórpia coluna
     def norm_OHE(self, df, coluna):
         # tbm é bom p coluna categórica
         # cria uma coluna p cada categoria
-        categorias = sorted(df[coluna].unique())
+        categorias = sorted(df[coluna].unique()) # olha coluna p descobrir qnts valores tem nela e ordena
         self.categorias_onehot[coluna] = categorias
    
     def transforma_OHE(self, df, coluna):
         resultado = df.copy()        
-        categorias = self.categorias_onehot[coluna]
+        categorias = self.categorias_onehot[coluna] # recupera oq foi aprendido no norm_OHE
+        # ex: humano é homem -> sex_f = 0, sex_m = 1
         
-        for categoria in categorias:
+        for categoria in categorias: # cada categoria cria uma nova coluna
             nome_col = f"{coluna}_{categoria}"
             resultado[nome_col] = (resultado[coluna] == categoria).astype(int)
+            # ex: categoria = 'F'
+            # resultado['sexo_F'] = (resultado["sexo"] == 'F').astype(int)
+            # se col. sexo for: M F F M, fica: 0, 1, 1, 0
             
-        resultado = resultado.drop(columns=[coluna])
+        resultado = resultado.drop(columns=[coluna]) # se liva da "coluna mae" q já n é necessária pq temos as colunas booleanas
         return resultado
         
    
     def inverte_OHE(self, df, coluna):
         resultado = df.copy()
-        categorias = self.categorias_onehot[coluna]
+        categorias = self.categorias_onehot[coluna] # pega as categorias salvas
         
         colunas_OHE = [f"{coluna}_{categoria}" for categoria in categorias]
         
-        def recupera_cat(linha):
+        def recupera_cat(linha): # recupera colunas como valores de cmapos
             for categoria in categorias:
                 nome_coluna = f"{coluna}_{categoria}"
                 if linha[nome_coluna] == 1:
