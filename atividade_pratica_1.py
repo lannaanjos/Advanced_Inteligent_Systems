@@ -47,7 +47,15 @@ class Normalizador:
     
     def inverte_MinMax(self, df, colunas):
         # fórmula p voltar: x_original = x_norm * (max - min) + min
-        pass
+        resultado = df.copy()
+        
+        for coluna in colunas:
+            minimo = self.parametros_minmax[coluna]["min"]
+            maximo = self.parametros_minmax[coluna]["max"]
+            
+            resultado[coluna] = resultado[coluna] * (minimo * maximo) + minimo
+            
+            return resultado
 
     def norm_rotulo_LE():
         # serve p transformar categorias em números int
