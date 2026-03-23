@@ -143,57 +143,58 @@ class Normalizador:
             # ex: cor = azul, logo cor_azul = 1, cor_vemerlho = 0, cor_verde = 0
             
         return resultado       
-        
 
-dados = pd.read_csv('dados_normalizar.csv', sep=';')
 
-for col in ['idade', 'altura', 'peso']:
-    dados[col] = dados[col].astype(str).str.replace(',', '.', regex=False)
-    dados[col] = pd.to_numeric(dados[col])
+if __name__ == "__main__":
+    dados = pd.read_csv('dados_normalizar.csv', sep=';')
 
-# teste MinMax
-normalizador = Normalizador()
+    for col in ['idade', 'altura', 'peso']:
+        dados[col] = dados[col].astype(str).str.replace(',', '.', regex=False)
+        dados[col] = pd.to_numeric(dados[col])
 
-print(f"Dados Originais:\n{dados}")
-print()
+    # teste MinMax
+    normalizador = Normalizador()
 
-colunas_numericas = ["idade", "altura", "peso"]
+    print(f"Dados Originais:\n{dados}")
+    print()
 
-normalizador.norm_MinMax(dados, colunas_numericas)
-dados_minmax = normalizador.transforma_MinMax(dados, colunas_numericas)
+    colunas_numericas = ["idade", "altura", "peso"]
 
-print(f"MinMax:\n{dados_minmax}")
-print()
+    normalizador.norm_MinMax(dados, colunas_numericas)
+    dados_minmax = normalizador.transforma_MinMax(dados, colunas_numericas)
 
-dados_minxmax_revertido = normalizador.inverte_MinMax(dados_minmax, colunas_numericas)
+    print(f"MinMax:\n{dados_minmax}")
+    print()
 
-print(f"Min Max Invertido:\n{dados_minxmax_revertido}")
-print()
+    dados_minxmax_revertido = normalizador.inverte_MinMax(dados_minmax, colunas_numericas)
 
-# teste label encoding
+    print(f"Min Max Invertido:\n{dados_minxmax_revertido}")
+    print()
 
-normalizador.norm_rotulos(dados, 'sexo')
-dados_rotulos = normalizador.transfroma_rotulo_LE(dados, "sexo")
+    # teste label encoding
 
-print(f"Label Encoding:\n{dados_rotulos}")
-print()
+    normalizador.norm_rotulos(dados, 'sexo')
+    dados_rotulos = normalizador.transfroma_rotulo_LE(dados, "sexo")
 
-dados_rotulos_invertidos = normalizador.inverte_LE(dados_rotulos, "sexo")
+    print(f"Label Encoding:\n{dados_rotulos}")
+    print()
 
-print(f"LE Invertido:\n{dados_rotulos_invertidos}")
-print()
+    dados_rotulos_invertidos = normalizador.inverte_LE(dados_rotulos, "sexo")
 
-# teste one hot encoding
+    print(f"LE Invertido:\n{dados_rotulos_invertidos}")
+    print()
 
-normalizador.norm_OHE(dados, 'sexo')
-dados_OHE = normalizador.transforma_OHE(dados, "sexo")
+    # teste one hot encoding
 
-print(f"One Hot Encoding:\n{dados_OHE}")
-print()
+    normalizador.norm_OHE(dados, 'sexo')
+    dados_OHE = normalizador.transforma_OHE(dados, "sexo")
 
-dados_OHE_invertido = normalizador.inverte_OHE(dados_OHE, "sexo")
+    print(f"One Hot Encoding:\n{dados_OHE}")
+    print()
 
-print(f"OHE Invertido:\n{dados_OHE_invertido}")
-print()
+    dados_OHE_invertido = normalizador.inverte_OHE(dados_OHE, "sexo")
+
+    print(f"OHE Invertido:\n{dados_OHE_invertido}")
+    print()
 
 

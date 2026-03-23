@@ -7,5 +7,25 @@
 Pede-se:
 
     Implemente um método que recebe os dados da nova instância e altera sua estrutura de acordo com os dados normalizados com one hot encoder'''
+    
 from atividade_pratica_1 import Normalizador
+import pandas as pd
 
+dados = pd.DataFrame({
+    'cor': ["preto", "branco", "azul", "verde"]
+})
+
+normalizador = Normalizador()
+
+normalizador.norm_OHE(dados, 'cor') # aprende a estrutura
+
+novo_dado = pd.DataFrame({
+    'cor': ['amarelo']
+})
+
+resultado = normalizador.estrutura_nova_instancia_OHE(novo_dado, 'cor')
+
+print(f"Novo dado original:\n{novo_dado}")
+print()
+
+print(f"Novo dado ajustado:\n{resultado}")
