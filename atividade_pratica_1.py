@@ -28,7 +28,7 @@ class Normalizador:
         for coluna in colunas:
             minimo = df[coluna].min()
             maximo = df[coluna].max()
-            self.parametros_minmax[colunas] = {"min": minimo, "max":maximo}
+            self.parametros_minmax[coluna] = {"min": minimo, "max":maximo}
             
     def tranforma_MinMax(self, df, colunas):
         # fórmula: x_norm = (x - min) / (max - min)
@@ -44,7 +44,7 @@ class Normalizador:
             else:
                 resultado[coluna] = (resultado[coluna] - minimo) / (maximo - minimo)
                 
-            return resultado
+        return resultado
     
     def inverte_MinMax(self, df, colunas):
         # fórmula p voltar: x_original = x_norm * (max - min) + min
@@ -54,7 +54,7 @@ class Normalizador:
             minimo = self.parametros_minmax[coluna]["min"]
             maximo = self.parametros_minmax[coluna]["max"]
             
-            resultado[coluna] = resultado[coluna] * (minimo * maximo) + minimo
+            resultado[coluna] = resultado[coluna] * (maximo - minimo) + minimo
             
             return resultado
         
@@ -129,4 +129,7 @@ class Normalizador:
         return resultado      
 
 dados = pd.read_csv('dados_normalizar.csv')
+
+# teste MinMax
+
 
