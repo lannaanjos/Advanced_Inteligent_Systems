@@ -12,9 +12,12 @@ import pandas as pd
 import numpy as np
 from sklearn.preprocessing import LabelEncoder, OneHotEncoder, MinMaxScaler
 
+# a classe precisa aprender os parâmentros da ida para poder voltar dps
+
 class Humano:
-    def normalizaMinMax():
-        pass
+    def normalizaMinMax(dados):
+        scaler = MinMaxScaler(feature_range=(0,1))
+        return scaler.fit_transform(dados)
 
     def normalizaRotulo():
         pass
@@ -24,3 +27,4 @@ class Humano:
 
 
 dados = pd.read_csv('dados_normalizar.csv')
+
