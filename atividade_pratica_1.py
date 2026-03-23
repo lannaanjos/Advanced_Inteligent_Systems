@@ -68,10 +68,22 @@ class Normalizador:
 
     def transfroma_rotulo_LE(self, df, coluna):
         # ideal p coluna 'sexo'
-        pass
+        resultado = df.copy()
+        
+        mapa = self.mapeamento_labels[coluna]        
+        resultado[coluna] = resultado[coluna].map(mapa)
+        
+        return resultado
     
     def inverte_LE(self, df, coluna):
-        pass
+        resultado = df.copy()
+        
+        mapa = self.mapeamento_labels[coluna]
+        mapa_invertido = {valor: chave for chave, valor in mapa.items()}
+        
+        resultado[coluna] = resultado[coluna].map(mapa_invertido)
+        
+        return resultado
 
     # /\/\/\/\ one hot encoding /\/\/\/\
 
