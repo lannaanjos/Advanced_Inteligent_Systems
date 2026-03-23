@@ -125,7 +125,25 @@ class Normalizador:
         resultado[coluna] = resultado.apply(recupera_cat, axis=1)
         resultado = resultado.drop(columns=colunas_OHE)
         
-        return resultado      
+        return resultado   
+    
+    ######## ex 2 2 2 2 2 2
+    def estrutura_nova_instancia_OHE(self, df, coluna):
+        resultado = df.copy()
+        
+        categorias = self.categorias_onehot[coluna]
+        valor = str(df[coluna]).lower()
+        
+        resultado = {}
+        
+        for categoria in categorias:
+            nome_coluna = f"{coluna}_{categoria}"
+            resultado[nome_coluna] = 1 if valor == str(categoria).lower() else 0
+            # se o valor da nova instancia for igual a categoria atual é um senão eh 0
+            # ex: cor = azul, logo cor_azul = 1, cor_vemerlho = 0, cor_verde = 0
+            
+        return resultado       
+        
 
 dados = pd.read_csv('dados_normalizar.csv', sep=';')
 
