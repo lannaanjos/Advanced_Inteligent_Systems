@@ -5,13 +5,13 @@ class Label_Encoder:
     # /\/\/\/\/\ label encoding /\/\/\/\/\
     # funciona criando um dicionário de tradução entre rotulo e numero
 
-    def norm_rotulos(self, df, coluna):
+    def set_parametros_LE(self, df, coluna):
         # serve p transformar categorias em números int
         rotulos = sorted(df[coluna].unique()) # olha coluna e pega valores possiveis sem repetir de forma organizada
         mapeamento = {rotulo: i for i, rotulo in enumerate(rotulos)} # cria um 'codigo' numerico p cada rotulo, ex: F = 1, M = 0
         self.mapeamento_labels[coluna] = mapeamento # guarda mapa na classe
 
-    def transfroma_rotulo_LE(self, df, coluna):
+    def endode_LE(self, df, coluna):
         # ideal p coluna 'sexo'
         resultado = df.copy()
         
@@ -20,7 +20,7 @@ class Label_Encoder:
         
         return resultado
     
-    def inverte_LE(self, df, coluna):
+    def decode_LE(self, df, coluna):
         resultado = df.copy()
         
         mapa = self.mapeamento_labels[coluna]
