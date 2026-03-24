@@ -19,8 +19,14 @@ normalizador = scaler.fit(dados_num)
 # salvar modelo normalizador
 pickle.dump(normalizador, open('normalizador_iris.pkl', 'wb'))
 
-#hiperparametrizar antes do treinamento
 dados_num_norm = normalizador.fit_transform(dados_num)
-
 dados_cat_norm = pd.get_dummies(dados_cat, prefix_sep="_", dtype=int)
 print(dados_cat_norm.head(10))
+
+# transforma em df
+dados_cat_norm = pd.DataFrame(dados_cat_norm, columns = dados_num.columns)
+
+
+#hiperparametrizar antes do treinamento
+
+
