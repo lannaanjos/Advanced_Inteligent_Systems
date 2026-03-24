@@ -4,7 +4,7 @@ class One_Hot:
 
      # /\/\/\/\ one hot encoding /\/\/\/\
     # categoria ganha prórpia coluna
-    def norm_OHE(self, df, coluna):
+    def set_parametros_OHE(self, df, coluna):
         # tbm é bom p coluna categórica
         # cria uma coluna p cada categoria
         categorias = sorted(df[coluna].unique()) # olha coluna p descobrir qnts valores tem nela e ordena
