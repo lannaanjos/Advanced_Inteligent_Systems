@@ -10,7 +10,7 @@ class One_Hot:
         categorias = sorted(df[coluna].unique()) # olha coluna p descobrir qnts valores tem nela e ordena
         self.categorias_onehot[coluna] = categorias
    
-    def transforma_OHE(self, df, coluna):
+    def encoder_OHE(self, df, coluna):
         resultado = df.copy()        
         categorias = self.categorias_onehot[coluna] # recupera oq foi aprendido no norm_OHE
         # ex: humano é homem -> sex_f = 0, sex_m = 1
@@ -26,7 +26,7 @@ class One_Hot:
         return resultado
         
    
-    def inverte_OHE(self, df, coluna):
+    def decode_OHE(self, df, coluna):
         resultado = df.copy()
         categorias = self.categorias_onehot[coluna] # pega as categorias salvas
         
@@ -45,7 +45,7 @@ class One_Hot:
         return resultado   
     
     ######## ex 2 2 2 2 2 2
-    def estrutura_nova_instancia_OHE(self, df, coluna):
+    def structure_new_OHE(self, df, coluna):
         resultado = df.copy()
         
         categorias = self.categorias_onehot[coluna]
