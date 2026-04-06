@@ -16,7 +16,7 @@ centroides = pd.DataFrame(cluster_iris.cluster_centers_, columns=nome_colunas)
 #print(centroides)
 
 # segmentar dataframe em colunas numericas e colunas categoricas
-dados_num_norm = centroides.drop(columns=['Iris_setosaa', 'Iris-versicolor', 'Iris_viriginica'])
+dados_num_norm = centroides.drop(columns=['Iris-setosa', 'Iris-versicolor', 'Iris-viriginica'])
 
 # desnormalizar colunas numéricas
 ## carregar o normalizador salvo durante preprocessamento

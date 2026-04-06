@@ -16,3 +16,8 @@ dados = pd.read_csv(CAMINHO_IRIS, sep=';')
 # separação de dados numéricos e categóricos
 dados_numericos = dados.drop(columns=['class'])
 dados_categoricos = dados['class']
+
+# normalização dados numéricos
+scaler = MinMaxScaler()
+normalizador = scaler.fit(dados_numericos)
+
