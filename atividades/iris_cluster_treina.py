@@ -7,3 +7,12 @@ import matplotlib.pyplot as plt
 import math
 import numpy as np
 
+from pathlib import Path
+
+CAMINHO_IRIS = Path(__file__).parent.parent / "Dados" / "iris.csv"
+
+dados = pd.read_csv(CAMINHO_IRIS, sep=';')
+
+# separação de dados numéricos e categóricos
+dados_numericos = dados.drop(columns=['class'])
+dados_categoricos = dados['class']
