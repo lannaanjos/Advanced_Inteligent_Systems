@@ -85,3 +85,13 @@ for i in range(len(distorcoes)):
     denominador = math.sqrt(
         (yn-y0)**2 + (xn-x0)**2
     )
+    
+    distancias.append(numerador/denominador)
+    
+numero_otimo_clusters = K[distancias.index(np.max(distancias))]
+print(f"Número ótimo de clusters: {numero_otimo_clusters}")
+
+# Treinar e salvar o modelo de clusters
+cluster_iris = KMeans(n_clusters=numero_otimo_clusters, random_state=42).fit(dados_norms)
+
+pickle.dump(cluster_iris, open("cluster_iris.pkl", 'wb'))
