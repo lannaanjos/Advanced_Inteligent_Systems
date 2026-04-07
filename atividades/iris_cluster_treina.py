@@ -33,3 +33,49 @@ dados_cat_norm = pd.get_dummies(
     dtype=int
 )
 
+# transforma num norm em dataframe
+dados_num_norm = pd.DataFrame(
+    dados_num_norm, columns=dados_numericos.columns
+)
+
+# recompor dataframe com todos os dados
+dados_norms = dados_num_norm.join(dados_cat_norm, how='left')
+print(dados_norms.head(8))
+
+# hiperparametrizar antes de treinar
+distorcoes = []
+
+# criar um intervalo numérico fechado a squerda e aberto a direita
+K = range(1,101)
+
+for i in K:
+    # treina iterativamente a aumenta nro de clusters
+    cluster_iris = KMeans(
+        n_clusters=i,
+        random_state=42
+    ).fit(dados_norms)
+
+    # calcula distorcao
+    distorcoes.append(
+        sum(
+            np.min(
+                cdist(dados_norms, cluster_iris.cluster_centers_, 'euclidean'),axis=1) / dados_norms.shape[0]
+        )
+    )
+
+# plotagem do gráfico de distorções (copiar do professor dps)
+    
+
+# determinar numero ótimo de clusters
+x0 = K[0]
+y0 = distorcoes[0]
+xn = K[-1]
+yn = distorcoes[-1]
+
+distancias = []
+
+for i in range(len(distorcoes)):
+    x = K[i]
+    y = distorcoes[i]
+
+    numerador = abs()
