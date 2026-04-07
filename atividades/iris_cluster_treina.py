@@ -78,4 +78,10 @@ for i in range(len(distorcoes)):
     x = K[i]
     y = distorcoes[i]
 
-    numerador = abs()
+    numerador = abs(
+        (yn-y0)*x - (xn-x0)*y + xn*y0 - yn*x0
+    )
+    
+    denominador = math.sqrt(
+        (yn-y0)**2 + (xn-x0)**2
+    )
