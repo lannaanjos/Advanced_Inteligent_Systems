@@ -1,11 +1,16 @@
 import pickle
 import pandas as pd
+from pathlib import Path
+
+CAMINHO_IRIS_PICKLE = Path(__file__).parent.parent / "Pickles" / "cluster_iris.pkl"
+
+print(CAMINHO_IRIS_PICKLE)
 
 nome_colunas = ['sepal_lenght', 'sepal_width', 'petal_lenght', 'petal_width', 'Iris-setosa',
                  'Iris-versicolor', 'Iris-virginica']
 
 # abrir o modelo treinado
-cluster_iris = pickle.load(open('cluster_iris.pkl', 'rb'))
+cluster_iris = pickle.load(open(CAMINHO_IRIS_PICKLE, 'rb'))
 
 #imprimir valores centroides
 print(cluster_iris.cluster_centers_)
