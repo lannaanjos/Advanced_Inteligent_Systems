@@ -16,7 +16,8 @@ centroides = pd.DataFrame(cluster_iris.cluster_centers_, columns=nome_colunas)
 #print(centroides)
 
 # segmentar dataframe em colunas numericas e colunas categoricas
-dados_num_norm = centroides.drop(columns=['Iris-setosa', 'Iris-versicolor', 'Iris-viriginica'])
+dados_num_norm = centroides.drop(columns=['Iris-setosa', 'Iris-versicolor', 'Iris-virginica'])
+dados_cat_norm = centroides['Iris-setosa', 'Iris-versicolor', 'Iris-virginica']
 
 # desnormalizar colunas numéricas
 ## carregar o normalizador salvo durante preprocessamento
@@ -28,3 +29,6 @@ dados_num = normalizador.inverse_transform(dados_num_norm)
 # após desormalizador dados numéricos teremos uma matriz do numpy, será necessário recriar o df
 
 dados_num = pd.DataFrame(dados_num, column = dados_num_norm.columns)
+
+# desnormalizar categoricas
+dados_categoricos = pd.from_dummies(dados_num_norm.round(0).astype(int), sep='_')

@@ -21,3 +21,15 @@ dados_categoricos = dados['class']
 scaler = MinMaxScaler()
 normalizador = scaler.fit(dados_numericos)
 
+# salvar normalizador
+pickle.dump(normalizador, open("normalizador_iris.pkl", "wb"))
+
+# normalizar dados num
+dados_num_norm = normalizador.fit_transform(dados_numericos)
+
+dados_cat_norm = pd.get_dummies(
+    dados_categoricos,
+    prefix_sep='_',
+    dtype=int
+)
+
