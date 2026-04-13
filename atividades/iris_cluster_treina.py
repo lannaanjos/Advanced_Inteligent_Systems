@@ -19,7 +19,7 @@ dados_categoricos = dados['class']
 
 # normalização dados numéricos
 scaler = MinMaxScaler()
-normalizador = scaler.fit(dados_numericos)
+normalizador = scaler.fit_transform(dados_numericos)
 
 # salvar normalizador
 pickle.dump(normalizador, open("normalizador_iris.pkl", "wb"))
