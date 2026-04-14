@@ -13,18 +13,23 @@ from sklearn.cluster import KMeans
 import pickle 
 from pathlib import Path
 import numpy as np
+import math
+from scipy.spatial.distance import cdist
+import matplotlib.pyplot as plt
 
-DADOS_BOSTON = "HousingData.csv"
+DADOS_BOSTON = Path(__file__).parent / "HousingData.csv"
 DESTINO_NORM = Path(__file__).parent / "norm_boston_housing.pkl"
 DESTINO_CLUSTER = Path(__file__).parent / "cluster_boston_housing.pkl"
 
 dados = pd.read_csv(DADOS_BOSTON) # vou usar assim porque não há dados categóricos 
 dados = dados.fillna(dados.mean()) # tratando 
 scaler = MinMaxScaler()
-normalizador = scaler.fit_transform(dados)
+normalizador = scaler.fit(dados)
 
 # salvando normalizador
 pickle.dump(normalizador, open(DESTINO_NORM, "wb"))
+
+dados_num = normalizador.fit_transform(dados)
 
 dados_num = pd.DataFrame(
     dados_num, columns=dados.columns
@@ -34,7 +39,8 @@ dados_num = pd.DataFrame(
 distorcoes = []
 # pega o total da base 
 k_range = range(1, 506)
- for k in k_range: # treina cada vez aumenta o número de clusters 
+for k in k_range:
+    # treina cada vez aumenta o número de clusters 
     cluster_boston = KMeans(
     n_clusters = k,
     random_state = 42 
@@ -44,11 +50,19 @@ k_range = range(1, 506)
         cdist(dados_num, cluster_boston.cluster_centers_, "euclidean"), axis = 1) / dados_num.shape[0]
     ))
 
+'''fig, ax = plt.subplots()
+ax.plot(k_range, distorcoes)
+ax.set_xlabel("N_clusters")
+ax.set_ylabel("Distorção")
+ax.set_title("Cotovelo")
+ax.grid()
+plt.show()'''
+
 # determinando nº ótimo de clusters
 x0 = k_range[0]
 y0 = distorcoes[0]
 xn = k_range[-1]
-yx = distorcoes[-1]
+yn = distorcoes[-1]
 
 distancias = []
 
