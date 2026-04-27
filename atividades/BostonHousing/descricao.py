@@ -18,10 +18,10 @@ centroides = pd.DataFrame(cluster_boston.cluster_centers_, columns=colunas)
 
 # carregar normalizador
 normalizador = pickle.load(open(ORIGEM_NORM_BOSTON, 'rb'))
-dados_numericos = normalizador.inverse_transform(cluster_boston)
+dados_numericos = normalizador.inverse_transform(centroides)
 
 # tem q recriar o DataFrame
-dados_numericos = pd.DataFrame(dados_numericos, columns=dados_numericos.columns)
+dados_numericos = pd.DataFrame(dados_numericos, columns=colunas)
 
 # n precisa desnorm cols categoricas nem juntas os dfs pq n têm dados categoricos no csv de origm
 print(dados_numericos)
