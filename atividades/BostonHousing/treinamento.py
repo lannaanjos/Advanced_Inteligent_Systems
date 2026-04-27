@@ -23,6 +23,10 @@ DESTINO_CLUSTER = Path(__file__).parent / "cluster_boston_housing.pkl"
 
 dados = pd.read_csv(DADOS_BOSTON) # vou usar assim porque não há dados categóricos 
 dados = dados.fillna(dados.mean()) # tratando 
+
+# drop do MEDV pq ele é o target
+dados = dados.drop(columns=['MEDV'])
+
 scaler = MinMaxScaler()
 normalizador = scaler.fit(dados)
 

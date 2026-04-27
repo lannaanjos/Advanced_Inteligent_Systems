@@ -7,7 +7,7 @@ ORIGEM_NORM_BOSTON = Path(__file__).parent / "norm_boston_housing.pkl"
 
 colunas = [
     'CRIM', 'ZN', 'INDUS', 'CHAS', 'NOX', 'RM', 'AGE',
-    'DIS', 'RAD', 'TAX', 'PTRATIO', 'B', 'LSTAT', 'MEDV' 
+    'DIS', 'RAD', 'TAX', 'PTRATIO', 'B', 'LSTAT',
 ]
 
 # abrindo modelo
