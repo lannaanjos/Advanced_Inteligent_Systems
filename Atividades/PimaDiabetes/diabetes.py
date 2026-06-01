@@ -4,6 +4,8 @@
 # Um classificado a sua escolha
 # Compare a acurácia detalhadamente e indique qual modelo é mais adequado para entrar em produção
 
+# Dica do Escobar: não usar split 70/30 se for usar cross validation
+
 import pandas as pd
 import numpy as np 
 from sklearn.model_selection import train_test_split
