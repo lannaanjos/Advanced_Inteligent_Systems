@@ -4,15 +4,28 @@
 # Um classificado a sua escolha
 # Compare a acurácia detalhadamente e indique qual modelo é mais adequado para entrar em produção
 
-# Dica do Escobar: não usar split 70/30 se for usar cross validation
+# Link para a base: https://www.kaggle.com/datasets/uciml/pima-indians-diabetes-database
 
+# Dica do Prof Escobar: não usar split 70/30 se for usar cross validation
+
+# Utilitários
 import pandas as pd
-import numpy as np 
+import numpy as np
+import pickle
+
 from sklearn.model_selection import train_test_split
 from sklearn.tree import DecisionTreeClassifier
+
+# Visualização
 from sklearn.metrics import ConfusionMatrixDisplay, confusion_matrix, accuracy_score
-import pickle
-import matplotlib.pyplot as plt 
+import matplotlib.pyplot as plt
+
+# Synthetic Minority Over-sampling Technique
+# -> Técnica de pré-processamento usada para resolver o desequilíbrio de um dataset. Etapas:
+# 1. Pega a diferença entre uma sample e seu vizinho mais próximo.
+# 2. Multiplica a diferença por um número aleatório entre 1 e 0.
+# 3. Adiciona essa diferença à sample para gerar um novo exemplo sintetico no espaço de features
+# 4. Continua com o próximo vizinho mais próximo até uma range definida pelo user.
 from imblearn.over_sampling import SMOTE
 
 from pathlib import Path
