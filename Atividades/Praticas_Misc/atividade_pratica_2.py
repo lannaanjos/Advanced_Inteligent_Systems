@@ -8,7 +8,7 @@ Pede-se:
 
     Implemente um método que recebe os dados da nova instância e altera sua estrutura de acordo com os dados normalizados com one hot encoder'''
     
-from Praticas.normalizador_reutilizavel import Normalizador
+from Atividades.Praticas_Misc.normalizador_reutilizavel import Normalizador
 import pandas as pd
 
 dados = pd.DataFrame({
