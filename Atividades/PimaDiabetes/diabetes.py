@@ -17,6 +17,7 @@ from pathlib import Path
 from sklearn.model_selection import train_test_split, RandomizedSearchCV
 from sklearn.tree import DecisionTreeClassifier
 from sklearn.ensemble import RandomForestClassifier
+from sklearn.svm import SVC
 
 # Visualização
 from sklearn.metrics import ConfusionMatrixDisplay, confusion_matrix, accuracy_score
@@ -25,6 +26,7 @@ matplotlib.use('Agg')
 import matplotlib.pyplot as plt
 
 PATH_CM_RF = Path(__file__).parent / "confusion_matrix_rf.png"
+PATH_CM_SVM = Path(__file__).parent / "confusion_matrix_svm.png"
 
 # Synthetic Minority Over-sampling Technique
 # -> Técnica de pré-processamento usada para resolver o desequilíbrio de um dataset. Etapas:
@@ -109,5 +111,44 @@ print("Sensibilidade RF: ", sensibilidade_rf)
 ConfusionMatrixDisplay.from_estimator(melhor_rf, att_teste, classe_teste)
 plt.title("Random Forest")
 plt.savefig(PATH_CM_RF)
+plt.close()
+
+# HIPERPARAMETRIZAÇÃO DO SVM
+svm_grid = {
+    'C': [0.1, 1, 10, 100],
+    'kernel': ['linear', 'rbf', 'poly'],
+    'gamma': ['scale', 'auto']
+}
+
+svm = SVC(random_state=42)
+
+svm_search = RandomizedSearchCV(
+    estimator = svm,
+    param_distributions = svm_grid,
+    n_iter = 10,
+    cv = 3,
+    verbose = 2,
+    n_jobs = -1,
+    random_state = 42
+)
+
+svm_search.fit(att_treino, classe_treino)
+
+# Avaliação
+melhor_svm = svm_search.best_estimator_
+preditos_svm = melhor_svm.predict(att_teste)
+
+acuracia_svm = accuracy_score(classe_teste, preditos_svm)
+tn, fp, fn, tp = confusion_matrix(classe_teste, preditos_svm).ravel()
+especificidade_svm = tn / (tn + fp)
+sensibilidade_svm = tp / (tp + fn)
+
+print("Acurácia SVM: ", acuracia_svm)
+print("Especificidade SVM: ", especificidade_svm)
+print("Sensibilidade SVM: ", sensibilidade_svm)
+
+ConfusionMatrixDisplay.from_estimator(melhor_svm, att_teste, classe_teste)
+plt.title("SVM")
+plt.savefig(PATH_CM_SVM)
 plt.close()
 
