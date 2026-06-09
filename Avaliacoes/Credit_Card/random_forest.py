@@ -68,6 +68,8 @@ plt.title("Random Forest")
 plt.savefig(PATH_CM_RF)
 plt.close()
 
+pickle.dump(melhor_rf, open(PATH_CREDITO_RF, "wb"))
+
 # results:
 '''Melhores parâmtros Random Forest:
 {'n_estimators': 70, 'min_samples_split': 2, 'max_features': 'log2', 'max_depth': 62, 'criterion': 'gini'}

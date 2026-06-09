@@ -58,6 +58,7 @@ dados_enc = pd.get_dummies(dados, columns = ['SEX', 'EDUCATION', 'MARRIAGE'])
 
 classe = dados_enc['default payment next month']
 atributos = dados_enc.drop(columns = ['default payment next month'])
+pickle.dump(list(atributos.columns), open(Path(__file__).parent / "colunas.pkl", "wb"))
 
 # /\/\ BALANCEAMENTO DOS DADOS
 balancer = SMOTE()
