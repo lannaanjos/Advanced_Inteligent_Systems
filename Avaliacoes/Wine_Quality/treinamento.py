@@ -12,6 +12,17 @@ Você deve demonstrar:
         a)      O fluxo de procedimentos até o treinamento do modelo (pipeline)
         b)      Acurácia global, acurácia por classes (use a matriz de confusão para tanto) e a medida f1-score
         c)      Justificar qual é o modelo mais adequado para possível implantação
+
+Modelo mais adequado: Random Forest
+
+/\/ JUSTIFICATIVA:
+O RF obteve a maior acurácia global (0.64) o e melhor F1 Score ponderado (0.64) entre os três modelos
+avaliados.Ele é mais adequado pois é um ensemble de árvores que reduz overfitting por agregação, enquanto
+a Decision Tree tenta memorizar.
+Ele também lida melhor com o resíduo desbalanceado de SMOTE, já que ele tem um recall mais balanceado entre
+as lasses majoritárias e minoritárias.
+Além disso, sua robustez a ruído e outliers é relevante num dataset de avaliação sensorial subjetiva
+como o esse.
 '''
 
 from pathlib import Path
