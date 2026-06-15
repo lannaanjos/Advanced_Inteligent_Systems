@@ -10,6 +10,16 @@
 #
 # Atenção: A base possui informações binárias que requerem que você analise melhor como essas informações serão tratadas. 
 
+# Metaestimador escolhido: KMeans
+
+'''
+ --  JUSTIFICATIVA METAESTIMADOR 
+
+Pacientes desconhecidos devem ser associados a grupos por similaridade, logo, não há um target a predizer, só padrões dos atributos.
+O KMeans é o metaestimador mais adequado porque, após o pré-processamento, todos os atributos são numéricos, o que satisfaz o requsito de distância
+euclidiana do algoritmo.
+'''
+
 # libs utils 
 from pathlib import Path
 import pickle
@@ -37,8 +47,7 @@ ELBOW_PATH = Path(__file__).parent / "cotovelo.png"
 COLUNAS_CONT = ["age", "creatinine_phosphokinase", "ejection_fraction", "platelets", "serum_creatinine", "serum_sodium", "time"]
 COLUNAS_BIN = ["anaemia", "diabetes", "high_blood_pressure", "sex", "smoking"]
 
-K_MAX = 30 # dataset tem 299 linhas, k_max <= sqrt(n/2)
-# o certo era 12 mas 30 é mais confortável
+K_MAX = 299
 
 
 # agr modular :)
